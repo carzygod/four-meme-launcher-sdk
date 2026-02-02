@@ -11,7 +11,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/wikig/four-meme-token-launcher.git"
+    "url": "git+https://github.com/carzygod/four-meme-launcher-sdk.git"
   },
   "keywords": [
     "bsc",
@@ -24,9 +24,9 @@
   "author": "wikig",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/wikig/four-meme-token-launcher/issues"
+    "url": "https://github.com/carzygod/four-meme-launcher-sdk/issues"
   },
-  "homepage": "https://github.com/wikig/four-meme-token-launcher#readme",
+  "homepage": "https://github.com/carzygod/four-meme-launcher-sdk#readme",
   "files": [
     "dist",
     "README.md"
