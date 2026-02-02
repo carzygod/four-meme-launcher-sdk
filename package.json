@@ -1,0 +1,21 @@
+{
+  "name": "four-launcher",
+  "version": "1.0.0",
+  "description": "Transparent launcher for Four.Meme",
+  "main": "launcher.ts",
+  "scripts": {
+    "start": "ts-node launcher.ts"
+  },
+  "dependencies": {
+    "axios": "^1.6.0",
+    "dotenv": "^16.3.0",
+    "form-data": "^4.0.0",
+    "four-meme-token-launcher": "^1.0.0",
+    "viem": "^1.19.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "ts-node": "^10.9.0",
+    "typescript": "^5.0.0"
+  }
+}
