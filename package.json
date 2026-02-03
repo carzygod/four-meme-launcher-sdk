@@ -1,6 +1,6 @@
 {
   "name": "four-meme-token-launcher",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "description": "A TypeScript library for programmatically deploying tokens on Four.Meme (BSC) with advanced tax support.",

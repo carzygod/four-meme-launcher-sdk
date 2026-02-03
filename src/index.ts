@@ -224,8 +224,8 @@ export async function deployToken(
             address: FACTORY_ADDRESS,
             abi: FACTORY_ABI,
             functionName: 'createToken',
-            args: [createArg, contractSignature],
-            value: parseEther("0.01") // Platform Fee
+            args: [createArg, contractSignature]
+            // No value needed - deployment fee removed by Four.Meme
         });
 
         console.log(`🎉 Transaction sent! Hash: ${hash}`);
