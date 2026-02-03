@@ -211,7 +211,6 @@ export async function deployToken(
             console.log("📝 Contract Arguments that would be sent:");
             console.log(`   - createArg: ${createArg}`);
             console.log(`   - signature: ${contractSignature}`);
-            console.log(`   - value: 0.01 BNB`);
 
             return {
                 success: true,
