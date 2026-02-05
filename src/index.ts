@@ -168,13 +168,15 @@ export async function deployToken(
             const liquidityRate = (taxConfig.liquidityBps || 0) / 100;
             const recipientRate = (taxConfig.fundsBps || 0) / 100;
 
+            const hasRecipient = (taxConfig.fundsBps || 0) > 0;
             Object.assign(metadataPayload, {
                 tokenTaxInfo: {
                     burnRate: burnRate,
                     divideRate: divideRate,
                     feeRate: feeRateInt, // e.g. 5 for 5%
                     liquidityRate: liquidityRate,
-                    recipientAddress: taxConfig.beneficiaryAddress || account.address,
+                    // If founder rate is 0, pass empty address to avoid "invalid rateFounder"
+                    recipientAddress: hasRecipient ? (taxConfig.beneficiaryAddress || account.address) : "",
                     recipientRate: recipientRate,
                     minSharing: 1000000 // Default from observed payload
                 },
