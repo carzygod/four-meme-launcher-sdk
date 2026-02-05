@@ -1,7 +1,7 @@
 import axios from 'axios';
 import FormData from 'form-data';
 import * as fs from 'fs';
-import { createWalletClient, http, parseEther, Hex } from 'viem';
+import { createWalletClient, createPublicClient, http, Hex } from 'viem';
 import { privateKeyToAccount } from 'viem/accounts';
 import { bsc } from 'viem/chains';
 import { DeployConfig, DeployResult, TaxConfig, TokenConfig } from './types';
@@ -228,10 +228,47 @@ export async function deployToken(
             // No value needed - deployment fee removed by Four.Meme
         });
 
-        console.log(`🎉 Transaction sent! Hash: ${hash}`);
+        console.log(`📝 Transaction sent! Hash: ${hash}`);
+        console.log(`⏳ Waiting for transaction confirmation...`);
+
+        // Create public client to read transaction receipt
+        const publicClient = createPublicClient({
+            chain: bsc,
+            transport: http(deployConfig.rpcUrl || 'https://bsc-dataseed.binance.org/')
+        });
+
+        // Wait for transaction receipt to get token address
+        const receipt = await publicClient.waitForTransactionReceipt({ hash });
+        console.log(`✅ Transaction confirmed in block ${receipt.blockNumber}`);
+
+        // Parse token address from logs
+        // The factory emits a TokenCreated event with the token address
+        let tokenAddress: string | undefined;
+
+        if (receipt.logs && receipt.logs.length > 0) {
+            // The token address is typically in the first log as the contract address
+            // or we can parse from the event data
+            for (const log of receipt.logs) {
+                // Token creation events usually have the token address as a topic or in data
+                if (log.address && log.address !== FACTORY_ADDRESS) {
+                    tokenAddress = log.address;
+                    break;
+                }
+            }
+        }
+
+        if (!tokenAddress) {
+            console.warn("⚠️  Could not parse token address from receipt, using fallback");
+            // Fallback: token address might be in the first log
+            tokenAddress = receipt.logs[0]?.address || undefined;
+        }
+
+        console.log(`🎉 Token deployed at: ${tokenAddress || 'Unknown'}`);
+
         return {
             success: true,
-            txHash: hash
+            txHash: hash,
+            tokenAddress: tokenAddress
         };
 
 
