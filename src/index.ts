@@ -137,7 +137,7 @@ export async function deployToken(
             symbol: "BNB",
             totalSupply: 1000000000,
             twitterUrl: tokenConfig.twitter || "",
-            websiteUrl: tokenConfig.website || "",
+            webUrl: tokenConfig.website || "",
             telegramUrl: tokenConfig.telegram || ""
         };
 
